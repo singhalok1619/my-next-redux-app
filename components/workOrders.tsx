@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from "./modal";
+import ActionModal from "./actionModal";
 import { useDispatch } from "react-redux";
 import { addUser } from "../src/redux/actions";
 import { useSelector } from "react-redux";
@@ -41,9 +42,12 @@ const WorkOrders = () => {
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isActionModalOpen, setActionModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+  const openActionModal = () => setActionModalOpen(true);
+  const closeActionModal = () => setActionModalOpen(false);
 
   return (
     <div className="w-auto h-auto">
@@ -251,8 +255,15 @@ const WorkOrders = () => {
                   <td className="py-3 px-4">${user?.amount}</td>
                   <td className="py-3 px-4">{user?.observedBy}</td>
                   <td className="py-3 px-4">{user?.status}</td>
-                  <td className="py-3 px-4 cursor-pointer">
-                    <BsThreeDotsVertical />
+                  <td className="py-3 px-4 cursor-pointer relative">
+                    <BsThreeDotsVertical onClick={openActionModal} />
+                    <ActionModal
+                      isOpen={isActionModalOpen}
+                      closeModal={closeActionModal}
+                    >
+                      <li>EDIT</li>
+                      <li>DELETE</li>
+                    </ActionModal>
                   </td>
                 </tr>
               </tbody>

@@ -12,3 +12,8 @@ export const updateUser = (user: any) => ({
   type: "UPDATE_USER",
   payload: user,
 });
+
+export const addEvent = (event: any) => ({
+  type: "ADD_EVENT",
+  payload: event,
+});

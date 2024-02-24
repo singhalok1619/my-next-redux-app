@@ -1,5 +1,7 @@
 const initialState = {
   users: [],
+  events: [],
+  reminder: [],
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -20,6 +22,11 @@ const userReducer = (state = initialState, action: any) => {
         users: state.users.map((user: any) =>
           user.id === action.payload.id ? action.payload : user
         ),
+      };
+    case "ADD_EVENT":
+      return {
+        ...state,
+        events: [...state.events, action.payload],
       };
     default:
       return state;
