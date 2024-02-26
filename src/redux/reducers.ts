@@ -28,6 +28,11 @@ const userReducer = (state = initialState, action: any) => {
         ...state,
         events: [...state.events, action.payload],
       };
+    case "ADD_REMINDER":
+      return {
+        ...state,
+        reminder: [...state.reminder, action.payload],
+      };
     default:
       return state;
   }

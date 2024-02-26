@@ -17,3 +17,7 @@ export const addEvent = (event: any) => ({
   type: "ADD_EVENT",
   payload: event,
 });
+export const addReminder = (reminder: any) => ({
+  type: "ADD_REMINDER",
+  payload: reminder,
+});

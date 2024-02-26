@@ -3,7 +3,7 @@ import { useState } from "react";
 import { addMonths, subMonths, format } from "date-fns";
 import Calendar from "../components/calendar";
 
-import { useSelector } from "react-redux";
+
 
 const Home = () => {
   const [currentDate, setCurrentDate] = useState(new Date());

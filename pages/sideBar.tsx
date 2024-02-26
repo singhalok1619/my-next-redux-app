@@ -11,13 +11,18 @@ import {
   IoPulseOutline,
   IoLogoAppleAr,
 } from "react-icons/io5";
+import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
 import WorkOrders from "../components/workOrders";
 import Reports from "../components/reports";
+import Calendar from "../components/calendar";
+import Logo from "../src/redux/logo.png";
+import Image from "next/image";
+import { IoIosCamera } from "react-icons/io";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
-  const [drawerContent, setDrawerContent] = useState("Reports");
+  const [drawerContent, setDrawerContent] = useState("Work Orders");
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -26,7 +31,7 @@ export default function SideBar() {
     {
       id: 1,
       label: "Face Recognition",
-      icon: IoLogoAppleAr,
+      icon: `IoIosCamera`,
     },
     {
       id: 2,
@@ -65,55 +70,75 @@ export default function SideBar() {
     },
   ];
 
+  const ContactUs = () => {
+    return (
+      <div className=" w-[110px] h-[45px] absolute right-9 bottom-10 rounded-l-3xl rounded-br-3xl cursor-pointer bg-[#006063]">
+        <span className="flex justify-center align-middle pt-[7%]">
+          <AiOutlineQuestionCircle className="text-center text-white font-bold mt-[4%] mr-[3%]" />
+          <p className="flex text-center text-white font-bold">Contact</p>
+        </span>
+      </div>
+    );
+  };
   return (
     <>
-      <div className="flex flex-row">
+      <div className="flex flex-row ">
+        <div className="">
+          <Image src={Logo} alt="Logo" className="absolute mb-3" />
+          <ul className=" border-[1px] border-r-gray-300 list-none  text-slate-500 fixed h-[100vh] pt-[10%] px-[1.1em]">
+            <li className=" text-[30px] p-[5%]  pb-[70%]">
+              <CiHome className="text-[20px] cursor-pointer bg-[#dcf6f3] text-[#5fccc1] rounded-full" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%]">
+              <IoCalendarOutline className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%]">
+              <IoAnalytics className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%]">
+              <IoPeopleOutline className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%] ">
+              <IoSettingsOutline className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%]">
+              <IoHelpCircleSharp className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%] ">
+              <IoPulseOutline className="text-[20px]" />
+            </li>
+            <li className="text-[30px] p-[5%] pt-[70%] pb-[70%] ">
+              <IoPowerOutline className="text-[20px]" />
+            </li>
+          </ul>
+        </div>
         <div
-          className={`w-[19%] h-screen text-black transform  block shadow-xl   ${
+          className={`w-[23vw] h-screen *:  text-black transform  block ${
             isOpen
-              ? "translate-x-0 transition-transform duration-300 ease-in-out"
-              : "-translate-x-[190px]"
+              ? "translate-x-[3.5em] transition-transform duration-300 ease-in-out"
+              : "-translate-x-[100em]"
           }`}
         >
-          <div className=" flex pt-[40%]">
-            <ul className="w-[20%] border-[1px] border-r-black list-none ml-[2%] text-slate-500  ">
-              <li className=" text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <CiHome />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoCalendarOutline />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoAnalytics />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoPeopleOutline />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoSettingsOutline />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoHelpCircleSharp />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoPulseOutline />
-              </li>
-              <li className="text-[30px] p-[5%] pt-[30%] pb-[30%]">
-                <IoPowerOutline />
-              </li>
-            </ul>
-            <ul className="list-none p-0 w-[80%] flex flex-col justify-around ">
-              {DrawerItem.map((item: any, id: any) => (
-                <li
-                  className="p-2   flex flex-row cursor-pointer justify-between  rounded-3xl"
-                  key={id}
-                  onClick={() => setDrawerContent(item?.label)}
-                >
-                  {item?.label}
-                  <IoIosArrowForward className="m-[2%]" />
-                </li>
-              ))}
-            </ul>
+          <div className="h-screen ml-[1.7em]">
+            <div className="text-[26px] pl-[0.6em] pt-[1.2em] font-bold  ">
+              Home
+            </div>
+            <div className="mt-[2em] ">
+              <ul className="list-none p-0  flex flex-col  ">
+                {DrawerItem.map((item: any, id: any) => (
+                  <li
+                    className={`p-2 mt-[2%] mb-[2%]  flex flex-row cursor-pointer justify-between  rounded-3xl ${
+                      item.label == drawerContent ? "bg-[#edfaf9]" : "bg-none"
+                    }`}
+                    key={id}
+                    onClick={() => setDrawerContent(item?.label)}
+                  >
+                    {item?.label}
+                    <IoIosArrowForward className="m-[2%]" />
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
         <span
@@ -122,7 +147,7 @@ export default function SideBar() {
           {toggleSidebar ? (
             <FaArrowLeft
               onClick={toggleSidebar}
-              className={`text-[black] transition-transform transform ${
+              className={`text-gray-600 ml-[0.7em] transition-transform transform ${
                 isOpen ? "rotate-180" : "rotate-0"
               }`}
             />
@@ -130,11 +155,20 @@ export default function SideBar() {
             <FaArrowRight onClick={toggleSidebar} />
           )}
         </span>
+
         {/* //Rest Content Area */}
-        <div className="w-[79%] h-screen">
+        <div
+          className={`w-[70vw] ml-[2%] h-screen   text-black transform  block  ${
+            isOpen
+              ? "translate-x-[2.2em] transition-transform duration-300 ease-in-out"
+              : "-translate-x-[7em]"
+          }`}
+        >
           {drawerContent == "Work Orders" && <WorkOrders />}
           {drawerContent == "Reports" && <Reports />}
+          {drawerContent == "Calender Type" && <Calendar />}
         </div>
+        <ContactUs />
       </div>
     </>
   );

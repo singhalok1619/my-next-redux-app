@@ -51,7 +51,7 @@ const WorkOrders = () => {
   const closeActionModal = () => setActionModalOpen(false);
 
   return (
-    <div className="w-auto h-auto">
+    <div className="">
       <div className=" flex ">
         <p className="text-[23px] font-bold text-black pt-[2%] pl-[2%]">
           Work Orders
@@ -231,9 +231,9 @@ const WorkOrders = () => {
       </div>
 
       {/* table */}
-      <div className="min-h-screen mt-[3%] w-full ">
+      <div className=" mt-[3%] w-full ">
         <div className="overflow-x-auto  flex justify-evenly ">
-          <table className="w-[inherit]">
+          <table className="">
             <thead className="bg-gray-100 ">
               <tr className="text-black text-[12px]">
                 <th className="py-3 px-4 text-left">DONOR</th>
