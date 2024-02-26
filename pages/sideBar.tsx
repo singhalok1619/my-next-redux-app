@@ -13,10 +13,11 @@ import {
 } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
 import WorkOrders from "../components/workOrders";
+import Reports from "../components/reports";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
-  const [drawerContent, setDrwaerContent] = useState("Reports");
+  const [drawerContent, setDrawerContent] = useState("Reports");
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -101,12 +102,12 @@ export default function SideBar() {
                 <IoPowerOutline />
               </li>
             </ul>
-            <ul className="list-none p-0 w-[80%] flex flex-col justify-evenly">
+            <ul className="list-none p-0 w-[80%] flex flex-col justify-around ">
               {DrawerItem.map((item: any, id: any) => (
                 <li
-                  className="p-2   flex flex-row cursor-pointer"
+                  className="p-2   flex flex-row cursor-pointer justify-between  rounded-3xl"
                   key={id}
-                  onClick={() => setDrwaerContent(item?.label)}
+                  onClick={() => setDrawerContent(item?.label)}
                 >
                   {item?.label}
                   <IoIosArrowForward className="m-[2%]" />
@@ -130,8 +131,9 @@ export default function SideBar() {
           )}
         </span>
         {/* //Rest Content Area */}
-        <div className="w-[79%] border-2 border-black h-screen">
-          <WorkOrders />
+        <div className="w-[79%] h-screen">
+          {drawerContent == "Work Orders" && <WorkOrders />}
+          {drawerContent == "Reports" && <Reports />}
         </div>
       </div>
     </>

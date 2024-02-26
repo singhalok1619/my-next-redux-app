@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoIosSearch } from "react-icons/io";
 import Modal from "./modal";
 import ActionModal from "./actionModal";
 import { useDispatch } from "react-redux";
@@ -51,17 +52,19 @@ const WorkOrders = () => {
 
   return (
     <div className="w-auto h-auto">
-      <div className="border-2 border-black flex ">
-        <p className="text-[27px] text-[grey] pt-[2%] pl-[2%]">Work Orders</p>
+      <div className=" flex ">
+        <p className="text-[23px] font-bold text-black pt-[2%] pl-[2%]">
+          Work Orders
+        </p>
         <button
-          className="bg-[#17c2af] hover:bg-[#16c2af] text-white font-bold py-2 px-4 rounded-full h-[16%] mt-[2%] ml-[4%]"
+          className="bg-[#17c2af] hover:bg-[#16c2af] text-white font-bold py-2 px-4 rounded-full h-[16%] mt-[2%] ml-[4%] text-[13px]"
           onClick={openModal}
         >
           + Create Order
         </button>
       </div>
       <Modal isOpen={isModalOpen} closeModal={closeModal}>
-        {/* Your modal content goes here */}
+        {/*  modal content goes here */}
         <form>
           <h1 className="text-gray-900 text-center mb-[4%]">Create Order</h1>
           <div className="grid gap-6 mb-6 lg:grid-cols-2">
@@ -203,34 +206,36 @@ const WorkOrders = () => {
           </button>
         </form>
       </Modal>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between ">
         <div className="ml-[2%] mt-[3%]">
           <span className="font-bold">Date:</span>
-          <span> 06/01/2023 - 7/19/2023</span>
+          <span className="text-[13px]"> 06/01/2023 - 7/19/2023</span>
         </div>
-        <div className="flex flex-row">
-          <div>1</div>
-          <div>
+        <div className="flex flex-row   text-[13px] justify-around w-[20%] mt-[1%]">
+          <span className=" w-[38px] h-[38px] flex bg-gray-200 rounded-full   ">
+            <IoIosSearch className=" text-[#16c2af] w-[34px]  flex h-[34px]" />
+          </span>
+          <div className="mx-[4%]">
             {" "}
             <button className="bg-[#17c2af]  hover:bg-[#16c2af] text-white font-bold py-2 px-4 rounded-full  mt-[2%] ml-[4%]">
-              Search
+              SEARCH
             </button>
           </div>
           <div>
             {" "}
-            <button className="bg-[#fff] hover:bg-[#16c2af] text-[#17c2af] hover:text-[#fff] outline-dashed font-bold py-2 px-4 rounded-full  mt-[2%] ml-[4%]">
-              Filter
+            <button className="bg-gray-200 hover:bg-[#16c2af] text-[#17c2af] hover:text-[#fff] border-[1px] border-[#17c2af] font-bold py-2 px-4 rounded-full  mt-[2%] ml-[4%] ">
+              FILTERS
             </button>
           </div>
         </div>
       </div>
 
       {/* table */}
-      <div className="flex min-h-screen w-[inherit] justify-evenly">
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-md rounded-xl">
-            <thead>
-              <tr className="bg-blue-gray text-gray-500">
+      <div className="min-h-screen mt-[3%] w-full ">
+        <div className="overflow-x-auto  flex justify-evenly ">
+          <table className="w-[inherit]">
+            <thead className="bg-gray-100 ">
+              <tr className="text-black text-[12px]">
                 <th className="py-3 px-4 text-left">DONOR</th>
                 <th className="py-3 px-4 text-left">PANELS</th>
                 <th className="py-3 px-4 text-left">BARCODE</th>
@@ -243,13 +248,13 @@ const WorkOrders = () => {
               </tr>
             </thead>
             {users.map((user: any) => (
-              <tbody className="text-blue-gray-900" key={user.id}>
+              <tbody className=" text-[12px]" key={user.id}>
                 <tr className="border-b border-blue-gray-200">
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-4 text-[#17c2af]">
                     {user?.lastName},{user?.firstName}
                   </td>
                   <td className="py-3 px-4">{user?.panel}</td>
-                  <td className="py-3 px-4">{user?.id}</td>
+                  <td className="py-3 px-4 text-[#17c2af]">{user?.id}</td>
                   <td className="py-3 px-4">{user?.source}</td>
                   <td className="py-3 px-4">{user?.date}</td>
                   <td className="py-3 px-4">${user?.amount}</td>
