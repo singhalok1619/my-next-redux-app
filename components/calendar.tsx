@@ -91,16 +91,24 @@ const Calendar = () => {
                 {format(day, "d")}
               </span>
               <div className="flex flex-col">
+                {events?.length > 0 ? (
+                  <span></span>
+                ) : (
+                  <span className="border-[1px] border-gray-400 rounded-sm mb-[1%] text-[12px]">
+                    Events : 0
+                  </span>
+                )}
                 {events.map((event: any) => {
                   if (isSameDay(new Date(event.eventDate), day)) {
                     return (
                       <>
                         <span
-                          className="border-[1px] border-black rounded-sm mb-[1%]"
+                          className="bg-[#F2C18D] rounded-sm mb-[1%] text-[12px]"
                           onClick={openEventModal}
                         >
-                          Events: {events.length}
+                          Events
                         </span>
+
                         <Modal
                           isOpen={isEventModalOpen}
                           closeModal={closeEventModal}
@@ -120,9 +128,42 @@ const Calendar = () => {
                   return null;
                 })}
 
-                {/* <span className="border-[1px] border-black rounded-sm mb-[1%]">
-                  Reminder : 0
-                </span> */}
+                {reminder?.length > 0 ? (
+                  <span></span>
+                ) : (
+                  <span className="border-[1px] border-gray-400 rounded-sm mb-[1%] text-[12px]">
+                    Reminder:0
+                  </span>
+                )}
+                {reminder.map((remind: any) => {
+                  if (isSameDay(new Date(remind.eventDate), day)) {
+                    return (
+                      <>
+                        <span
+                          className="bg-[#F6F193] rounded-sm mb-[1%] text-[12px]"
+                          onClick={openEventModal}
+                        >
+                          Reminder
+                        </span>
+
+                        <Modal
+                          isOpen={isEventModalOpen}
+                          closeModal={closeEventModal}
+                        >
+                          <span className=" text-[20px] flex justify-center items-center mt-[0]">
+                             
+                            <p className="font-bold mx-[2%] text-[35px] text-[#2c3039]">
+                              {" "}
+                              {format(remind?.eventDate, "d MMMM")}
+                            </p>
+                          </span>
+                          <span>{remind?.reminderTitle}</span>
+                        </Modal>
+                      </>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </div>
           </>

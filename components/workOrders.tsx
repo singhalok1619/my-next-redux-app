@@ -6,6 +6,7 @@ import ActionModal from "./actionModal";
 import { useDispatch } from "react-redux";
 import { addUser } from "../src/redux/actions";
 import { useSelector } from "react-redux";
+import { deleteUser } from "../src/redux/actions";
 
 const WorkOrders = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const WorkOrders = () => {
   const [amount, setAmount] = useState("");
   const [observedBy, setObservedBy] = useState("");
   const [status, setStatus] = useState("");
+  const [userId, setUserId] = useState("");
   const users = useSelector((state: any) => state.users);
 
   const handleAddUser = () => {
@@ -49,6 +51,16 @@ const WorkOrders = () => {
   const closeModal = () => setModalOpen(false);
   const openActionModal = () => setActionModalOpen(true);
   const closeActionModal = () => setActionModalOpen(false);
+
+  const takeUserId = (id: any) => {
+    openActionModal();
+    setUserId(id);
+  };
+
+  const handleDeleteUser = () => {
+    dispatch(deleteUser(parseInt(userId, 10)));
+    setUserId("");
+  };
 
   return (
     <div className="">
@@ -261,13 +273,13 @@ const WorkOrders = () => {
                   <td className="py-3 px-4">{user?.observedBy}</td>
                   <td className="py-3 px-4">{user?.status}</td>
                   <td className="py-3 px-4 cursor-pointer relative">
-                    <BsThreeDotsVertical onClick={openActionModal} />
+                    <BsThreeDotsVertical onClick={() => takeUserId(user?.id)} />
                     <ActionModal
                       isOpen={isActionModalOpen}
                       closeModal={closeActionModal}
                     >
                       <li>EDIT</li>
-                      <li>DELETE</li>
+                      <button onClick={handleDeleteUser}>Delete</button>
                     </ActionModal>
                   </td>
                 </tr>
