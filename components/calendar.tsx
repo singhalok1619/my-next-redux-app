@@ -55,12 +55,9 @@ const Calendar = () => {
     setReminderDate("");
     setReminderTitle("");
   };
-
   const start = startOfMonth(currentDate);
   const end = endOfMonth(currentDate);
   const days = eachDayOfInterval({ start, end });
-
-  console.log(reminder, "reminder");
 
   return (
     <div className=" mx-auto mt-8">
@@ -93,32 +90,12 @@ const Calendar = () => {
               <div className="flex flex-col">
                 {events?.length > 0 ? <span></span> : <span></span>}
                 {events.map((event: any) => {
-                  console.log(event, "event");
                   if (isSameDay(new Date(event.eventDate), day)) {
                     return (
                       <>
-                        <span
-                          className="bg-[#F2C18D] rounded-sm mb-[1%] text-[12px]"
-                          // onClick={openEventModal}
-                        >
+                        <span className="bg-[#F2C18D] rounded-sm mb-[1%] text-[12px]">
                           Events
                         </span>
-                        {/* 
-                        <Modal
-                          isOpen={isEventModalOpen}
-                          closeModal={closeEventModal}
-                        >
-                          <span className=" text-[20px] flex justify-center items-center mt-[0]">
-                            Events on{" "}
-                            <p className="font-bold mx-[2%] text-[35px] text-[#2c3039]">
-                              {" "}
-                              {format(event.eventDate, "d MMMM")}
-                            </p>
-                          </span>
-                          {isSameDay(new Date(event.eventDate), day) ? (
-                            <li key={event?.id}>{event?.eventTitle}</li>
-                          ) : null}
-                        </Modal> */}
                       </>
                     );
                   }

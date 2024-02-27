@@ -15,7 +15,7 @@ const UpdateUserForm = ({ oldUserId }) => {
   const [newObservedBy, setNewObservedBy] = useState("");
   const [newStatus, setNewStatus] = useState("");
 
-  console.log(oldUserId, "userId");
+
   const handleUpdateUser = () => {
     const user = {
       id: parseInt(userId, 10),
@@ -28,8 +28,6 @@ const UpdateUserForm = ({ oldUserId }) => {
       observedBy: newObservedBy,
       status: newStatus,
     };
-
-    console.log(user.id, "hell");
     dispatch(updateUser(user));
     setUserId("");
     setNewFirstName("");
