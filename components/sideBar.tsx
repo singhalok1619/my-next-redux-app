@@ -13,16 +13,16 @@ import {
 } from "react-icons/io5";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import { IoIosArrowForward } from "react-icons/io";
-import WorkOrders from "../components/workOrders";
-import Reports from "../components/reports";
-import Calendar from "../components/calendar";
+import WorkOrders from "./workOrders";
+import Reports from "./reports";
+import Calendar from "./calendar";
 import Logo from "../src/redux/logo.png";
 import Image from "next/image";
 import { IoIosCamera } from "react-icons/io";
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true);
-  const [drawerContent, setDrawerContent] = useState("Work Orders");
+  const [drawerContent, setDrawerContent] = useState("Reports");
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };

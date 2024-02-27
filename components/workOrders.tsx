@@ -7,9 +7,11 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../src/redux/actions";
 import { useSelector } from "react-redux";
 import { deleteUser } from "../src/redux/actions";
+import UpdateUserForm from "./UpdateUserForm";
 
 const WorkOrders = () => {
   const dispatch = useDispatch();
+  const users = useSelector((state: any) => state.users);
   const [firstName, setfirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [panel, setPanel] = useState("");
@@ -19,7 +21,6 @@ const WorkOrders = () => {
   const [observedBy, setObservedBy] = useState("");
   const [status, setStatus] = useState("");
   const [userId, setUserId] = useState("");
-  const users = useSelector((state: any) => state.users);
 
   const handleAddUser = () => {
     const user = {
@@ -42,15 +43,19 @@ const WorkOrders = () => {
     setAmount("");
     setObservedBy("");
     setStatus("");
+    closeModal();
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [isActionModalOpen, setActionModalOpen] = useState(false);
+  const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
   const openActionModal = () => setActionModalOpen(true);
   const closeActionModal = () => setActionModalOpen(false);
+  const openUpdateModal = () => setUpdateModalOpen(true);
+  const closeUpdateModal = () => setUpdateModalOpen(false);
 
   const takeUserId = (id: any) => {
     openActionModal();
@@ -60,6 +65,11 @@ const WorkOrders = () => {
   const handleDeleteUser = () => {
     dispatch(deleteUser(parseInt(userId, 10)));
     setUserId("");
+  };
+
+  const handleUpdateUser = () => {
+    closeActionModal();
+    openUpdateModal();
   };
 
   return (
@@ -218,14 +228,15 @@ const WorkOrders = () => {
           </button>
         </form>
       </Modal>
+
       <div className="flex flex-row justify-between ">
         <div className="ml-[2%] mt-[3%]">
           <span className="font-bold">Date:</span>
           <span className="text-[13px]"> 06/01/2023 - 7/19/2023</span>
         </div>
         <div className="flex flex-row   text-[13px] justify-around w-[20%] mt-[1%]">
-          <span className=" w-[38px] h-[38px] flex bg-gray-200 rounded-full   ">
-            <IoIosSearch className=" text-[#16c2af] w-[34px]  flex h-[34px]" />
+          <span className="  flex bg-gray-200 rounded-full h-[35px] w-[35px]  ">
+            <IoIosSearch className=" text-[#16c2af]  p-[15%] text-[35px] flex " />
           </span>
           <div className="mx-[4%]">
             {" "}
@@ -244,8 +255,8 @@ const WorkOrders = () => {
 
       {/* table */}
       <div className=" mt-[3%] w-full ">
-        <div className="overflow-x-auto  flex justify-evenly ">
-          <table className="">
+        <div className="overflow-x-auto  flex justify-evenly max-h-[65vh] ">
+          <table className=" w-[100%] ">
             <thead className="bg-gray-100 ">
               <tr className="text-black text-[12px]">
                 <th className="py-3 px-4 text-left">DONOR</th>
@@ -259,32 +270,59 @@ const WorkOrders = () => {
                 <th className="py-3 px-4 text-left">ACTION</th>
               </tr>
             </thead>
-            {users.map((user: any) => (
-              <tbody className=" text-[12px]" key={user.id}>
-                <tr className="border-b border-blue-gray-200">
-                  <td className="py-3 px-4 text-[#17c2af]">
-                    {user?.lastName},{user?.firstName}
-                  </td>
-                  <td className="py-3 px-4">{user?.panel}</td>
-                  <td className="py-3 px-4 text-[#17c2af]">{user?.id}</td>
-                  <td className="py-3 px-4">{user?.source}</td>
-                  <td className="py-3 px-4">{user?.date}</td>
-                  <td className="py-3 px-4">${user?.amount}</td>
-                  <td className="py-3 px-4">{user?.observedBy}</td>
-                  <td className="py-3 px-4">{user?.status}</td>
-                  <td className="py-3 px-4 cursor-pointer relative">
-                    <BsThreeDotsVertical onClick={() => takeUserId(user?.id)} />
-                    <ActionModal
-                      isOpen={isActionModalOpen}
-                      closeModal={closeActionModal}
-                    >
-                      <li>EDIT</li>
-                      <button onClick={handleDeleteUser}>Delete</button>
-                    </ActionModal>
-                  </td>
-                </tr>
-              </tbody>
-            ))}
+            {users.length > 0 ? (
+              <>
+                {users.map((user: any) => (
+                  <tbody className=" text-[12px]" key={user.id}>
+                    <tr className="border-b border-blue-gray-200">
+                      <td className="py-3 px-4 text-[#17c2af]">
+                        {user?.lastName},{user?.firstName}
+                      </td>
+                      <td className="py-3 px-4">{user?.panel}</td>
+                      <td className="py-3 px-4 text-[#17c2af]">{user?.id}</td>
+                      <td className="py-3 px-4">{user?.source}</td>
+                      <td className="py-3 px-4">{user?.date}</td>
+                      <td className="py-3 px-4">${user?.amount}</td>
+                      <td className="py-3 px-4">{user?.observedBy}</td>
+                      <td className="py-3 px-4">{user?.status}</td>
+                      <td className="py-3 px-4 cursor-pointer">
+                        <BsThreeDotsVertical
+                          onClick={() => takeUserId(user?.id)}
+                          className="hover:bg-gray-200 text-[18px] rounded-xl p-[5%] relative"
+                        />
+                        <ActionModal
+                          isOpen={isActionModalOpen}
+                          closeModal={closeActionModal}
+                        >
+                          <span className="flex flex-row justify-evenly  ">
+                            <button
+                              className="text-white bg-[#15d4ce] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#15d4ce] dark:hover:bg-[#15d4ce] dark:focus:ring-[#15d4ce] flex"
+                              onClick={() => handleUpdateUser()}
+                            >
+                              EDIT
+                            </button>
+                            <button
+                              onClick={handleDeleteUser}
+                              className="text-white bg-[#15d4ce] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-[#15d4ce] dark:hover:bg-[#15d4ce] dark:focus:ring-[#15d4ce] flex"
+                            >
+                              Delete
+                            </button>
+                          </span>
+                        </ActionModal>
+                        <Modal
+                          isOpen={isUpdateModalOpen}
+                          closeModal={closeUpdateModal}
+                        >
+                          <UpdateUserForm oldUserId={user?.id} />
+                        </Modal>
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
+              </>
+            ) : (
+              <p className=" text-center">No Order Found</p>
+            )}
           </table>
         </div>
       </div>
